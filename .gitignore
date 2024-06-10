@@ -1,0 +1,5 @@
+# Ignorar archivos de configuración de entorno
+.venv
+
+# Ignorar pycache
+__pycache__

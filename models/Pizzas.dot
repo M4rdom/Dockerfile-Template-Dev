@@ -1,0 +1,39 @@
+digraph FeatureModel {
+rankdir="TB"
+newrank=true
+bgcolor="#1e1e1e"
+edge [color=white]
+node [style=filled fontcolor="white" fontname="Arial Unicode MS, Arial"];
+
+Salami [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Topping -> Salami [arrowhead="none", arrowtail="dot", dir="both"]
+Ham [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Topping -> Ham [arrowhead="none", arrowtail="dot", dir="both"]
+Mozzarella [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Topping -> Mozzarella [arrowhead="none", arrowtail="dot", dir="both"]
+Topping [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="invhouse"]
+Pizza -> Topping [arrowhead="dot", arrowtail="none", dir="both"]
+Normal [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Size -> Normal [arrowhead="none", arrowtail="odot", dir="both"]
+Big [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Size -> Big [arrowhead="none", arrowtail="odot", dir="both"]
+Size [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="invhouse"]
+Pizza -> Size [arrowhead="dot", arrowtail="none", dir="both"]
+Neapolitan [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Dough -> Neapolitan [arrowhead="none", arrowtail="odot", dir="both"]
+Sicilian [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Dough -> Sicilian [arrowhead="none", arrowtail="odot", dir="both"]
+Dough [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="invhouse"]
+Pizza -> Dough [arrowhead="dot", arrowtail="none", dir="both"]
+CheesyCrust [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+Pizza -> CheesyCrust [arrowhead="odot", arrowtail="none", dir="both"]
+Pizza [fillcolor="#ABACEA" tooltip="Cardinality: None" shape="box"]
+
+
+subgraph cluster_constraints{
+    label="Constraints" color="white" fontcolor="white"
+    constraints [shape="box" color="#1e1e1e" label=<<table border="0" cellpadding="0" cellspacing="0" cellborder="0">
+        <tr><td align="left">CheesyCrust =&gt; Big</td></tr>
+</table>>]
+}
+}

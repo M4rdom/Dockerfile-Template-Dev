@@ -1,0 +1,34 @@
+features
+	Dockerfile {abstract true}
+		mandatory
+			Server
+				alternative
+					nginx
+					apache
+					tomcat
+					jetty
+			Databases
+				alternative
+					postgres
+					mysql
+					neo4j
+					mongo
+			Backend
+				alternative
+					OpenJDK
+					Node
+					php
+					Golang
+			Frontend
+				alternative
+					React
+					Angular
+					Vue
+					Ember
+		optional
+			PLATFORM
+				alternative
+					"linux/amd64"
+					"linux/arm64"
+					"darwin/amd64"
+constraints
