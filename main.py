@@ -1,5 +1,5 @@
 import Docker_Instruction_Placer.DockerfileContent as df 
-import Dockerfile_Instruction_Driver as ins
+import Docker_Instruction_Placer.Dockerfile_Instruction_Driver as ins
 import file_manager as fm
 
 
