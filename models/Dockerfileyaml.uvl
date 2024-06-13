@@ -1,6 +1,6 @@
 features
-	Dockerfile {abstract true}
-		mandatory
+	"Aplicacion Web" {abstract true}
+		optional
 			Server
 				alternative
 					nginx
@@ -8,11 +8,18 @@ features
 					tomcat
 					jetty
 			Databases
-				alternative
-					postgres
-					mysql
-					neo4j
-					mongo
+				 alternative
+					"Bases de datos relacionales"
+						alternative
+							postgres
+							mysql
+							sqlite
+							oracle
+							sqlserver
+					"Bases de datos NoSQL"
+						alternative
+							neo4j
+							mongo
 			Backend
 				alternative
 					OpenJDK
@@ -32,3 +39,12 @@ features
 					"linux/arm64"
 					"darwin/amd64"
 constraints
+    (Server => Databases)
+    (Backend => Frontend)
+    //(PLATFORM => (Server or Backend))
+    //("Bases de datos relacionales" <=> ("nginx" or "apache"))
+    //("neo4j" <=> "mongo")
+    //("OpenJDK" <=> "React")
+    //("Node" <=> "Angular")
+    //("php" <=> "Vue")
+    //("Golang" <=> "Ember")

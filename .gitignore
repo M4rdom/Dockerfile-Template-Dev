@@ -3,3 +3,6 @@
 
 # Ignorar pycache
 __pycache__
+
+# Ignorar archivos con Extension .dot
+*.dot
