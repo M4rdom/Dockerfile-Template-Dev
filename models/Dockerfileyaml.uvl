@@ -1,6 +1,6 @@
 features
-	"Aplicacion Web" {abstract true}
-		optional
+	"Aplicacion_Web" {abstract true}
+		mandatory
 			Server
 				alternative
 					nginx
@@ -9,14 +9,14 @@ features
 					jetty
 			Databases
 				 alternative
-					"Bases de datos relacionales"
+					"Bases_de_datos_relacionales"
 						alternative
 							postgres
 							mysql
 							sqlite
 							oracle
 							sqlserver
-					"Bases de datos NoSQL"
+					"Bases_de_datos_NoSQL"
 						alternative
 							neo4j
 							mongo
@@ -41,10 +41,3 @@ features
 constraints
     (Server => Databases)
     (Backend => Frontend)
-    //(PLATFORM => (Server or Backend))
-    //("Bases de datos relacionales" <=> ("nginx" or "apache"))
-    //("neo4j" <=> "mongo")
-    //("OpenJDK" <=> "React")
-    //("Node" <=> "Angular")
-    //("php" <=> "Vue")
-    //("Golang" <=> "Ember")

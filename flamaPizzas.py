@@ -15,8 +15,6 @@ from flamapy.metamodels.configuration_metamodel.models import Configuration
 
 
 FM_PATH = 'models/Pizzas.uvl'
-#FM_PATH = 'models/DockerfileConfiguration.uvl'
-FM_PATH = 'models/Dockerfileyaml.uvl'
 
 
 def test_main():
@@ -39,7 +37,7 @@ def test_main():
     # Obtain the children of a given feature
     children = fm.root.get_children()
     print(f'Children of the root feature {fm.root.name}: {[f.name for f in children]}')
-    feature = fm.get_feature_by_name('Server')  # Obtain a feature from its name
+    feature = fm.get_feature_by_name('Topping')  # Obtain a feature from its name
     children = feature.get_children()
     print(f'Children of the feature {feature}: {[f.name for f in children]}')
 
@@ -49,13 +47,13 @@ def test_main():
     print(f'Parent of the root feature {fm.root}: {fm.root.get_parent()}')
 
     # Obtain all relations of a feature
-    feature = fm.get_feature_by_name('Aplicacion_Web')  # Obtain a feature from its name
+    feature = fm.get_feature_by_name('Pizza')  # Obtain a feature from its name
     print(f'Relations of {feature}:')
     for i, relation in enumerate(feature.get_relations(), 1):
         print(f' |-Relation {i}: {relation} -> parent: {relation.parent.name}, children: {[f.name for f in relation.children]}, card_min: {relation.card_min}, card_max: {relation.card_max}')
 
     # Obtain specific information for a relation
-    feature = fm.get_feature_by_name('Databases')  # Obtain a feature from its name
+    feature = fm.get_feature_by_name('Topping')  # Obtain a feature from its name
     print(f'Relations of {feature}:')
     for i, relation in enumerate(feature.get_relations(), 1):
         print(f' |-Relation {i}: {relation} -> parent: {relation.parent.name}, children: {[f.name for f in relation.children]}, card_min: {relation.card_min}, card_max: {relation.card_max}')
@@ -138,7 +136,7 @@ def test_main():
     ###############################################################################################
 
     # Create a valid configuration, but an invalid product because there is no any Size selected ('Normal' nor 'Big')
-    elements = ['Aplicacion_Web', 'Server', 'apache', 'Databases', 'Bases_de_datos_relacionales', 'oracle', 'Backend', 'php', 'Frontend']
+    elements = ['Pizza', 'Topping', 'Mozzarella', 'Dough', 'Sicilian', 'Size']  
     features = {fm.get_feature_by_name(e): True for e in elements}
     my_config = Configuration(features)
     print(f'My configuration: {[f.name for f in my_config.get_selected_elements()]}')
