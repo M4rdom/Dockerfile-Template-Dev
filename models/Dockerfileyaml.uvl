@@ -1,43 +1,68 @@
 features
-	"Aplicacion_Web" {abstract true}
+	Aplicacion_Web {abstract true}
 		mandatory
-			Server
+			Web_Server
 				alternative
 					nginx
-					apache
+					httpd
+					haproxy
 					tomcat
 					jetty
+					tomee
 			Databases
 				 alternative
-					"Bases_de_datos_relacionales"
+					Bases_de_datos_relacionales
 						alternative
 							postgres
 							mysql
 							sqlite
 							oracle
 							sqlserver
-					"Bases_de_datos_NoSQL"
+					Bases_de_datos_NoSQL
 						alternative
 							neo4j
 							mongo
+ 			Content_Management_System
+			 		alternative
+			 			wordpress
 			Backend
-				alternative
-					OpenJDK
-					Node
-					php
-					Golang
-			Frontend
-				alternative
-					React
-					Angular
-					Vue
-					Ember
+			 		alternative
+			 			OpenJDK
+			 			Node
+			 			php
+			 			Golang
+			Framework
+		 		alternative
+		 			React1
+		 			Angular1
+		 			Flask1
+		 			Django1
+		 	Frontend
+		 		alternative
+		 			React
+		 			Angular
+		 			Flask
+		 			Django
 		optional
-			PLATFORM
-				alternative
-					"linux/amd64"
-					"linux/arm64"
-					"darwin/amd64"
+		 	PLATFORM
+		 		alternative
+		 			"linux/amd64"
+		 			"linux/arm64"
+		 			"darwin/amd64"
+					
+		 	Operating_System
+		 		alternative
+		 			busybox
+		 			alpine
+		 			ubuntu
+		 			debian
+		 			amazonlinux
+		 			fedora
+
+		 	API_Management
+		 		alternative
+		 			kong
+		 			satosa
+		 			"api-firewall"
+		 			"bitnami/nginx"
 constraints
-    (Server => Databases)
-    (Backend => Frontend)
