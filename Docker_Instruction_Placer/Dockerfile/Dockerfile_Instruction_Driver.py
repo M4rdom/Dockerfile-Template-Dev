@@ -1,28 +1,51 @@
 import Docker_Instruction_Placer.DockerfileContent as df
 
-def place_FROM(image:str,platform:str,tag_digest:str,as_name:str):
+def place_COMMENT(comment:str) -> str:
+    """
+    Esta función coloca un comentario en el Dockerfile.
+    Parámetros:
+        comment: Comentario a colocar.
+    Returns:
+        str: Instruccion de comentario.
+    """
+    instruction = ""
+    instruction += "# " + comment
+    instruction +="\n"
+    return instruction
+
+def place_SPACE() -> str:
+    """
+    Esta función coloca un espacio en el Dockerfile.
+    Returns:
+        str: Instruccion de espacio.
+    """
+    instruction = ""
+    instruction += "\n"
+    return instruction
+
+def place_FROM(image:str,platform:str = None,tag_digest:str = None, as_name:str = None) -> str:
 
     """
     Esta función coloca la instrucción FROM en el Dockerfile.
     FROM Description:
         Create a new build stage from a base image.
     Parámetros:
-        image: Nombre de la imagen base.
-        platform: Plataforma de la imagen.
-        tag_digest: Etiqueta o hash de la imagen.
-        as_name: Nombre de la imagen.
+        image: (str) Nombre de la imagen base.
+        platform: (str,OPTIONAL) Plataforma de la imagen.
+        tag_digest: (str,OPTIONAL) Etiqueta o hash de la imagen.
+        as_name: (str,OPTIONAL) Nombre de la imagen.
+    Returns:
+        str: Instrucción FROM.
     """
-    df.Dockerfile +=  "FROM "
+    instruction:str = "FROM "
     if platform is not None:
-        df.Dockerfile += "--platform=" + platform + " "
-    df.Dockerfile += image 
+        instruction += "--platform=" + platform + " "
+    instruction += image
     if tag_digest is not None:
-        df.Dockerfile += ":" + tag_digest + " "
-    else:
-        df.Dockerfile += " "
+        instruction += ":" + tag_digest + " "
     if as_name is not None:
-        df.Dockerfile += "AS " + as_name
-    df.Dockerfile +="\n"
+        instruction += "AS " + as_name
+    return instruction
 
 def place_LABEL(keys:str,values:str):
     """
@@ -69,16 +92,18 @@ def place_MAINTAINER(name:str):
     df.Dockerfile += "MAINTAINER " + name
     df.Dockerfile +="\n"
 
-def place_WORKDIR(path:str):
+def place_WORKDIR(path:str) -> str:
     """
     Esta función coloca la instrucción WORKDIR en el Dockerfile.
     WORKDIR Description:
         Change working directory.
     Parámetros:
         path: Directorio de trabajo.
+    Returns:
+        str: Instrucción WORKDIR.
     """
-    df.Dockerfile += "WORKDIR " + path
-    df.Dockerfile +="\n"
+    instruction = "WORKDIR " + path
+    return instruction
 
 def place_ARG(name:str,default_value:str):
     """
@@ -95,7 +120,7 @@ def place_ARG(name:str,default_value:str):
         df.Dockerfile += "ARG " + name + "=" +default_value
     df.Dockerfile +="\n"
 
-def place_CMD_exec_form(executable:str,parameters:str):
+def place_CMD_exec_form(parameters:list[str],executable:str=None) -> str:
     """
     Esta función coloca la instrucción CMD en el Dockerfile bajo la forma Exec Form.
     CMD Description:
@@ -104,17 +129,18 @@ def place_CMD_exec_form(executable:str,parameters:str):
         executable: Ejecutable a correr.
         parameters: Lista de parámetros.
     """
+    instruction = ""
     if executable is None: #(exec form, as default parameters to ENTRYPOINT)
-        df.Dockerfile += "CMD " + '['
+        instruction += "CMD " + '['
         for parameter in parameters[:-1]:
-            df.Dockerfile += '"' + parameter + '",'
-        df.Dockerfile += '"' + parameters[-1] + '"]' 
+            instruction += '"' + parameter + '",'
+        instruction += '"' + parameters[-1] + '"]' 
     else: #Most Cases
-        df.Dockerfile += "CMD " + '["' + executable + '",'
+        instruction += "CMD " + '["' + executable + '",'
         for parameter in parameters[:-1]:
-            df.Dockerfile += '"' + parameter + '",'
-        df.Dockerfile += '"' + parameters[-1] + '"]'
-    df.Dockerfile +="\n"
+            instruction += '"' + parameter + '",'
+        instruction += '"' + parameters[-1] + '"]'
+    return instruction
 
 def place_CMD_shell_form(command:str,parameters:str):
     """
@@ -130,21 +156,27 @@ def place_CMD_shell_form(command:str,parameters:str):
         df.Dockerfile += parameter + " "
     df.Dockerfile +="\n"         
 
-def place_COPY(options:str,src:str,dst:str):
+def place_COPY(source:str,destination:str,options:str= None) -> str:
     """
     Esta función coloca la instrucción COPY en el Dockerfile.
     COPY Description:
         Copy files and directories.
     Parámetros:
         options: Lista de opciones.
-        src: Archivo o directorio de origen.
+        source: Archivo o directorio de origen.
         dst: Directorio de destino.
+    Returns:
+        str: Instrucción COPY.
     """
-    df.Dockerfile += "COPY "
-    for option in options:
-        df.Dockerfile += option + " "
-    df.Dockerfile += src + " " + dst
-    df.Dockerfile +="\n"
+    instruction = ""
+    instruction += "COPY "
+    if options is None:
+        pass
+    else:
+        for option in options:
+            instruction += option + " "
+    instruction += source + " " + destination
+    return instruction
 
 def place_ADD(options:str,srcs:str,dst:str):
     """
@@ -272,45 +304,48 @@ def place_SHELL(shell:str,parameters:str):
     df.Dockerfile += '"' + parameters[-1] + '"]'
     df.Dockerfile +="\n"
 
-def place_RUN_exec_form(options:str,commands:str):
+def place_RUN_exec_form(commands:list[str],options:str=None) -> str:
     """
     Esta función coloca la instrucción RUN en el Dockerfile bajo la forma Exec Form.
     RUN Description:
         Execute build commands.
     Parámetros:
-        options: Lista de opciones.
+        options: (str,optional)Lista de opciones.
         commands: Lista de comandos.
-
+    Returns:
+        str: Instrucción RUN exec form.
     """
-    df.Dockerfile += "RUN "
+    instruction= "RUN "   
     if options is None:
-        df.Dockerfile += "["
-    else:
+        instruction += "["
+    else: 
         for option in options:
-                df.Dockerfile += option + " ["
+            instruction += option + " ["
     for command in commands[:-1]:
-        df.Dockerfile +='"'+ command +'",'
-    df.Dockerfile += '"'+ commands[-1] + '"]'
-    df.Dockerfile +="\n"
+        instruction +='"'+ command +'",'
+    instruction += '"'+ commands[-1] + '"]'
+    return instruction
 
-def place_RUN_shell_form(options:str,commands:str):
+def place_RUN_shell_form(commands:list[str],options:str = None) -> str:
     """
     Esta función coloca la instrucción RUN en el Dockerfile bajo la forma Shell Form.
     RUN Description:
         Execute build commands.
     Parámetros:
-        options: Lista de opciones.
-        commands: Lista de comandos.
+        commands: (list[str]) Lista de comandos.
+        options: (list[str],optional) Lista de opciones.
+    Returns:
+        str: Instrucción RUN shell form.
     """
-    df.Dockerfile += "RUN "
+    instruction = "RUN "
     if options is None:
         pass
     else:
         for option in options:
-                df.Dockerfile += option + " "
+                instruction += option + " "
     for command in commands:
-        df.Dockerfile +=command +' '
-    df.Dockerfile +="\n"
+        instruction +=command +' '
+    return instruction
     
 def place_USER(user:str,group:str):
     """

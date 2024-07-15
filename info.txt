@@ -1,0 +1,36 @@
+Web Servers  
+nginx 
+apache http
+
+Server
+BackEnd Framework | Optional Database
+Framework | Optional Database
+Database
+
+
+BackEnd
+Javascript Node.js
+Python Flask Django
+Ruby ruby on rails 
+Java springboot 
+Go Go
+
+
+Backend Frameworks
+JavaScript NODE + ExpressJS fastify Nestjs Adonis
+python django
+ruby on rails
+java spring
+
+
+Package Manager
+npm javascript 
+pip python
+bundler ruby 
+maven java
+
+
+Framework web
+JavaScript Angular React 
+
+Django solo soporta oficialmente sqlite3 postgresql mysql oracle

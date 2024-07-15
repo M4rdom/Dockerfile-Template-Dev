@@ -6,3 +6,12 @@ __pycache__
 
 # Ignorar archivos con Extension .dot
 *.dot
+
+# Ingorar node_modules
+node_modules
+
+#Ingnorar .angular 
+.angular
+
+#Ingorar .vscode
+.vscode
