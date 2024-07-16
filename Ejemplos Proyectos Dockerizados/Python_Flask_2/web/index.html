@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <!-- Others meta tags-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="FM Characterization Fact Label">
+        <!-- <meta name="author" content="José Miguel Horcas"> -->
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+        <!-- Title -->
+        <title>FM Characterization Fact Label</title>
+
+        <!-- Custom fonts for this template-->
+        <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
+        <script src="https://kit.fontawesome.com/d0a6ca53ae.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+        <!-- Google Fonts: Franklin Libre Black 900 (replacement for Franklin Gothic Heavy) -->
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@900&display=swap" rel="stylesheet"> -->
+
+        <!-- Custom styles for this template-->
+        <link href="css/sb_admin_2/sb-admin-2.min.css" rel="stylesheet">
+
+        <!-- d3.js library -->
+        <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+        <!-- FM fact label visualization script -->
+        <script src="js/fm_fact_label/fm_fact_label.js"></script>
+
+        <!-- To save as files. -->
+        <script src="js/FileSaver.js"></script>
+    </head>
+
+    <body id="page-top">
+
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                            <h1 class="h3 mb-0 text-gray-800">FM Characterization Fact Label</h1>
+                        </div>
+
+                        <!-- Content Row -->
+
+                        <div class="row">
+
+                            <!-- Form component -->
+                            <div class="col-xl-6 col-lg-5">
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div
+                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">Upload your feature model</h6>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <!-- Form -->
+                                        <form action="{{url_for('index')}}" method='POST' enctype="multipart/form-data">
+                                            <div class="form-group row">
+                                                <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                                <div class="col-sm">
+                                                <input type="text" class="form-control" id="inputName" name="inputName" placeholder="Feature model's name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputDescription" class="col-sm-2 col-form-label">Description</label>
+                                                <div class="col-sm">
+                                                    <textarea class="form-control" id="inputDescription" name="inputDescription" rows="3" placeholder="Brief description of the feature model."></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputAuthor" class="col-sm-2 col-form-label">Author</label>
+                                                <div class="col-sm">
+                                                <input type="text" class="form-control" id="inputAuthor" name="inputAuthor" placeholder="Author(s)">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputYear" class="col-sm-2 col-form-label">Year</label>
+                                                <div class="col-sm">
+                                                <input type="number" class="form-control" id="inputYear" name="inputYear" placeholder="Year">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputReference" class="col-sm-2 col-form-label">Reference</label>
+                                                <div class="col-sm">
+                                                <input type="text" class="form-control" id="inputReference" name="inputReference" placeholder="Main reference or DOI">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputKeywords" class="col-sm-2 col-form-label">Keywords</label>
+                                                <div class="col-sm">
+                                                <input type="text" class="form-control" id="inputKeywords" name="inputKeywords" placeholder="Tags or keywords">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputDomain" class="col-sm-2 col-form-label">Domain</label>
+                                                <div class="col-sm">
+                                                <input type="text" class="form-control" id="inputDomain" name="inputDomain" placeholder="Domain">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputFM" class="col-sm-2 col-form-label">FM file</label>
+                                                <div class="col-sm">
+                                                    <input type="file" class="form-control-file" id="inputFM" name="inputFM">
+                                                    {% if data and data.file_error %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ data.file_error }}
+                                                    </div>
+                                                    {% else %}
+                                                    Supported formats: UVL (.uvl), FeatureIDE (.xml, .fide)
+                                                    {% endif %}
+                                                    <select class="custom-select" id="inputExample" name="inputExample">
+                                                        <option value="">Or select an FM</option>
+                                                        {% for file in data.models %}
+                                                        <option value="{{ file }}">{{ file }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    {% if data and data.fm_example %}
+                                                        <a href="{{ data.fm_example }}" id="downloadButton" class="btn btn-primary" role="button" download>Download FM</a> 
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            <button type="submit" id="submitButton" class="spinner-button btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                            {% if data and data.fm_facts %}
+                            <!-- FM Fact Label chart -->
+                            <div class="col-xl-6 col-lg-7">
+                                <div class="card shadow mb-4">
+                                    <!-- Card Header - Dropdown -->
+                                    <div
+                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                        <h6 class="m-0 font-weight-bold text-primary">FM Fact Label</h6>
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header">Save as...</div>
+                                                <a class="dropdown-item" id="saveSVG" href="#">SVG</a>
+                                                <a class="dropdown-item" id="savePNG" href="#">PNG</a>
+                                                <!-- <a class="dropdown-item" id="savePDF" href="#">PDF</a> -->
+                                                <div class="dropdown-divider"></div>
+                                                <div class="dropdown-header">Export to...</div>
+                                                <a class="dropdown-item" id="saveJSON" href="#">JSON</a>
+                                                <a class="dropdown-item" id="saveTXT" href="#">Plain text</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <h6 class="h6">Label configuration:</h6>
+                                        <div class="mt-0 small">
+                                            <!-- <div class="form-check form-switch row">
+                                                <span class="me-2">
+                                                    <input class="form-check-input" type="checkbox" id="portraitOrientation">
+                                                    <label class="form-check-label" for="portraitOrientation">Portrait orientation</label>
+                                                </span>
+                                                <span class="me-2">
+                                                    <input class="form-check-input" type="checkbox" id="intermediateRules">
+                                                    <label class="form-check-label" for="intermediateRules">Intermediate rules</label>
+                                                </span>
+                                            </div> -->
+                                            <div class="form-check form-switch">
+                                                <span class="me-2">
+                                                        <input class="form-check-input" type="checkbox" id="collapseSubProperties" checked>
+                                                        <label class="form-check-label" for="collapseSubProperties">Collapse/Expand sub-properties</label>
+                                                </span>
+                                            </div>
+                                            <div class="form-check form-switch">
+                                                <span class="me-2">
+                                                        <input class="form-check-input" type="checkbox" id="collapseZeroValues">
+                                                        <label class="form-check-label" for="collapseZeroValues">Collapse/Expand sub-properties with zero values</label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Card Body -->
+                                    <div class="card-body">
+                                        <svg class="chart" id="FMFactLabelChart"></svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End of FM Fact Label chart-->
+                            {% endif %}
+                            
+                        </div>
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; 2022</span>
+                        </div>
+                    </div>
+                </footer>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+    
+        <!-- JavaScript-->        
+        <!-- Bootstrap Bundle: Bootstrap JS with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+        <!-- JQuery (required by the sb-admin-2 template) -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        
+        <!-- JQuery Easing (required by the sb-admin-2 template) -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+        <!-- sb-admin-2 template (custom scripts for all pages) -->
+        <script src="js/sb_admin_2/sb-admin-2.min.js"></script>
+
+        {% if data and data.fm_facts %}
+        <script type="text/javascript">
+            // d3.json('fm_facts.json').then(drawFMFactTag);  
+            var fmCharacterizationStr = `{{ data.fm_characterization_str | safe }}`;
+            var fmCharacterizationJSONStr = `{{ data.fm_characterization_json_str | safe }}`;
+            var fmFactsJSON = '{{ data.fm_facts | tojson | safe }}';
+            var fmData = JSON.parse(fmFactsJSON);
+            drawFMFactLabel(fmData);
+        </script>
+        {% endif %}
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("#submitButton").click(function() {
+                    // disable button
+                    //$(this).prop("disabled", true);
+                    // add spinner to button
+                    $(this).html(
+                        '<i class="fa fa-circle-o-notch fa-spin"></i> Loading...'
+                    );
+                });
+            });
+        </script>
+        
+        <!-- FM fact label persistence script -->
+        <script src="js/fm_fact_label/fm_persistence.js"></script>
+    </body>
+</html>
