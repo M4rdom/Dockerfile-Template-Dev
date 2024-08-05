@@ -1,27 +1,25 @@
+Production
+-> (Optional) Load_Balacer | Web Server | BackEnd | Database
+-> BackEnd Framework | (Optional) Database
+-> Web Server 
+-> Database
+
+Development
+-> Frontend Framework | (Optional) Backend Framework | (Optional) Database
+-> Backend Framework
+-> Database
+
 Web Servers  
-nginx 
+nginx
 apache http
-
-Server
-BackEnd Framework | Optional Database
-Framework | Optional Database
-Database
-
+caddy
 
 BackEnd
-Javascript Node.js
-Python Flask Django
-Ruby ruby on rails 
-Java springboot 
-Go Go
-
-
-Backend Frameworks
-JavaScript NODE + ExpressJS fastify Nestjs Adonis
-python django
-ruby on rails
-java spring
-
+Javascript: Node.js + ExpressJS fastify Nestjs Adonis
+Python: Flask Django
+Ruby: ruby on rails 
+Java: springboot 
+Go: Go
 
 Package Manager
 npm javascript 
@@ -29,8 +27,22 @@ pip python
 bundler ruby 
 maven java
 
-
 Framework web
-JavaScript Angular React 
+JavaScript\TypeScript: Angular React
+Angular:
+        Node.js + server.js
+        Nginx + nginx.conf
+        apache + httpd.conf
 
+
+WSGI Server
+Gunicorn
+uWSGI
+mod_wsgi -> apache
+
+Pre-forking 
+mod_wsgi -> Apache
+NGINX + Gunicorn|uWSGI
+
+Observaciones:
 Django solo soporta oficialmente sqlite3 postgresql mysql oracle

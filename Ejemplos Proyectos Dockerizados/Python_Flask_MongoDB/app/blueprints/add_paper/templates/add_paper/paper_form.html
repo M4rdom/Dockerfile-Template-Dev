@@ -1,0 +1,131 @@
+<form action="{{ url_for(config.url_for_action) }}" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+    <div class="row gy-1 has-validation">
+        <div class="col-sm-6">
+            <label for="doi" class="form-label">DOI/URL</label>
+            <input type="url" class="form-control " name="doi" id="doi" aria-describedby="validationDoi" required {% if data and data.doi %}value="{{data.doi}}"{% endif %} {% if config.readonly_doi %}readonly{% endif %}>
+            <div id="validationDoi" class="invalid-feedback">
+                Please provide a valid DOI/URL.
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <div class="row">
+                <label class="form-label" style="visibility:hidden;">Extract info</label>
+            </div>
+            <div class="row">
+                <input type="submit" class="btn btn-secondary" name="extract" value="Extract Info">
+            </div>
+        </div>        
+    </div>
+    <div class="row gy-1">
+        <div class="col-sm-6">
+            <label for="extended_doi" class="form-label">Ext. version</label>
+            <input type="url" class="form-control" name="extended_doi" id="extended_doi" {% if data and data.extended_doi %}value="{{data.extended_doi}}"{% endif %}>
+            <div class="invalid-feedback">
+                Please provide a valid DOI/URL.
+            </div>
+        </div>
+    </div>
+    <div class="row gy-1">
+        <div class="col-sm-6">
+            <label for="title" class="form-label">Title</label>
+            <textarea type="text" class="form-control" name="title" id="title" rows="3">{% if data and data.title %}{{data.title}}{% endif %}</textarea>
+            <div class="invalid-feedback">
+                The title of the paper is required.
+            </div>
+        </div>
+    </div>
+    <div class="row gy-1">
+        <div class="col-sm-2">
+            <label for="authors" class="form-label">Authors</label>
+            <textarea type="text" class="form-control" name="authors" id="authors" rows="3">{% if data and data.authors %}{{data.authors | join(', ')}}{% endif %}</textarea>
+            <div class="invalid-feedback">
+                Authors are required.
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <label for="affiliations" class="form-label">Affiliations</label>
+            <textarea type="text" class="form-control" name="affiliations" id="affiliations" rows="3">{% if data and data.affiliations %}{{data.affiliations | join(', ')}}{% endif %}</textarea>
+            <div class="invalid-feedback">
+                Authors' affiliations are required.
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <label for="countries" class="form-label">Countries</label>
+            <textarea type="text" class="form-control" name="countries" id="countries" rows="3">{% if data and data.countries %}{{data.countries | map(attribute='name') | join(', ')}}{% endif %}</textarea>
+            <div class="invalid-feedback">
+                Affiliations' countries are required.
+            </div>
+        </div>
+    </div>
+    <div class="row gy-1">
+        <div class="col-sm-5">
+            <label for="venue" class="form-label">Venue</label>
+            <input type="text" class="form-control" name="venue" id="venue" {% if data and data.venue %}value="{{data.venue}}"{% endif %}>
+            <div class="invalid-feedback">
+                The venue (conference) is required.
+            </div>
+        </div>
+        <div class="col-sm-1">
+            <label for="year" class="form-label">Year</label>
+            <input type="number" class="form-control" name="year" id="year" {% if data and data.year %}value="{{data.year}}"{% endif %}>
+            <div class="invalid-feedback">
+                The publication year is required.
+            </div>
+        </div>
+    </div>
+    <div class="row gy-1">
+        <div class="col-sm-3">
+            <label for="award" class="form-label">Award</label>
+            <input type="text" class="form-control" name="award" id="award" {% if data and data.award %}value="{{data.award}}"{% endif %}>
+        </div>
+        <div class="col-sm-3">
+            <label for="certificate" class="form-label">Certificate</label>
+            <input type="file" class="form-control" name="certificate" id="certificate"/>
+        </div>
+        {% if config.download_certificate %}
+            <div class="col-sm-1">
+                <div class="row">
+                    <label class="form-label" style="visibility:hidden;">Download certificate</label>
+                </div>
+                <div class="row">
+                    <label class="form-label">{% if data and data.certificate %}<a href="{{ url_for('table.download_certificate', certificate=data.certificate) }}" title="Download certificate"><i class="fa-solid fa-download" style="color: green;"></i></a>{% else %}<i class="fa-solid fa-download" style="color: gray;" title="Not available"></i>{% endif %}</label>
+                </div>
+            </div>      
+        {% endif %}
+    </div>
+    {% if current_user.is_anonymous %} 
+    <div class="row gy-1">
+        <div class="col-sm-6">
+            <div class="g-recaptcha" data-sitekey="{{ config.pub_key }}" style="text-align: center; display: inline-block;" required></div>
+        </div>
+    </div>
+    {% endif %}
+    {% if not current_user.is_anonymous %}
+    <div class="row gy-1">
+        <div class="col-sm-6 form-check form-switch">
+            <label for="verified" class="form-check-label">Verified</label>
+            <input type="checkbox" role="switch" class="form-control form-check-input" name="verified" id="verified" {% if data and data.verified %}checked{% endif %}>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row gy-1">
+        <div class="col-sm-1">
+            <input type="submit" class="btn btn-primary" name="{{config.submit_action}}" value="{{config.submit_botton}}">
+        </div>
+        <div class="col-sm-5">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    {% if category == "info" %}
+                        <div class="alert alert-success" role="alert">{{ message }}</div>
+                    {% endif %}
+                    {% if category == "warning" %}
+                        <div class="alert alert-warning" role="alert">{{ message }}</div>
+                    {% endif %}
+                    {% if category == "error" %}
+                        <div class="alert alert-danger" role="alert">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+        </div>
+    </div>
+</form>

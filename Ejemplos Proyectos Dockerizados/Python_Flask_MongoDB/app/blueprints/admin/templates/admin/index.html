@@ -1,0 +1,29 @@
+{% extends 'table/index.html' %}
+
+{% block table_header %}
+    <tr>
+        {% include 'table/table_columns.html' %}
+        <th><i class="fa-solid fa-pencil" style="color: black;" title="Edit paper information"></i></th>
+        <th><i class="fa-solid fa-trash-can" style="color: black;" title="Delete paper"></i></th>
+    </tr>
+{% endblock %}
+
+{% block table_content %}
+    {% for paper in data %}
+    <tr>
+        {% with paper=paper %}
+            {% include 'table/table_rows.html' %}
+        {% endwith %}
+        <td><a href="{{ url_for('admin.edit_paper', id=paper.id) }}" title="Edit paper information"><i class="fa-solid fa-pencil" style="color: orange;"></i></a></td>
+        <td><a href="{{ url_for('admin.delete_paper', id=paper.id) }}" title="Delete paper"><i class="fa-solid fa-trash-can" style="color: red;"></i></a></td>
+    </tr>
+    {% endfor %}
+{% endblock %}
+
+{% block table_footer %}
+    <tr>
+        {% include 'table/table_columns.html' %}
+        <th><i class="fa-solid fa-pencil" style="color: black;" title="Edit paper information"></i></th>
+        <th><i class="fa-solid fa-trash-can" style="color: black;" title="Delete paper"></i></th>
+    </tr>
+{% endblock %}

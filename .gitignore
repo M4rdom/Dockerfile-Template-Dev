@@ -10,8 +10,18 @@ __pycache__
 # Ingorar node_modules
 node_modules
 
-#Ingnorar .angular 
+# Ingnorar .angular 
 .angular
 
-#Ingorar .vscode
+# Ingorar .vscode
 .vscode
+
+# Ingorar .github
+.github
+
+# Ingorar Carpeta dist
+dist
+
+# Ignorar Entorno de desarrollo
+.env
+

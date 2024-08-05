@@ -1,0 +1,11 @@
+<td>{{paper.venue if paper.venue}}</td>
+<td>{{paper.year if paper.year}}</td>
+<td><a href="{{paper.doi}}" title="Paper"><i class="fa-regular fa-file-lines" style="color: black;"></i></a><span hidden>{{paper.doi}}</span></td>
+<td>{% if paper.extended_doi %}<a href="{{paper.extended_doi}}" title="Extended (journal) version"><i class="fa-solid fa-file-lines" style="color:black;"></i></a><span hidden>{{paper.extended_doi}}</span>{% endif %}</td>
+<td>{{paper.title if paper.title }}</td>
+<td>{{paper.authors | join(', ')}}</td>
+<td>{{paper.affiliations | join (', ')}}</td>
+<td>{% for country in paper.countries %}<i class="flag-icon flag-icon-{{country.code}}" title={{country.name}}><span hidden>{{country.name}}</span></i>{% endfor %}</td>
+<td>{{ paper.award if paper.award }}</td>
+<td>{% if paper.certificate %}<a href="{{ url_for('table.download_certificate', certificate=paper.certificate) }}" title="Download certificate"><i class="fa-solid fa-award" style="color: goldenrod;"></i></a><span hidden>{{paper.certificate}}</span>{% endif %}</td>
+<td>{% if paper.verified %}<i class="fa-solid fa-circle-check" style="color: green;" title="This award has been verified."></i><span hidden>True</span>{% else %}<i class="fa-solid fa-circle-minus" style="color: grey;" title="This award is unverified."></i><span hidden>False</span>{% endif %}</td>
