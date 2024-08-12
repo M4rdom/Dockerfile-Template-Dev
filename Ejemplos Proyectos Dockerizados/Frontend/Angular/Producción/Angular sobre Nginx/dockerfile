@@ -1,8 +1,8 @@
 # Etapa 1: Compilar la aplicación Angular
-FROM node:latest AS build
+FROM node:22 AS build
 
 # Establece el directorio de trabajo
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app/
 
 # Copia los archivos de configuración
 COPY package.json package-lock.json ./
@@ -17,7 +17,7 @@ COPY . .
 RUN npm run build --prod
 
 # Etapa 2: Servir la aplicación Angular construida usando nginx
-FROM nginx:alpine
+FROM nginx
 
 # Copia los archivos compilados desde la etapa de build
 COPY --from=build /usr/src/app/dist/angular-example /usr/share/nginx/html
