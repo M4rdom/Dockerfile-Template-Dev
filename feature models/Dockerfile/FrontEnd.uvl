@@ -1,0 +1,48 @@
+features
+    Frontend {abstract}
+        mandatory
+            Framework 
+                alternative
+                    Angular
+                    React
+                    Vue
+                optional
+                    Custom_Compiled_Version
+                        alternative
+                            String Compiled_Version_Tag
+                            String Compiled_Version_Digest
+            WebServer 
+                alternative
+                    Apache 
+                        optional
+                            Apache_config_file
+                    Nginx 
+                        optional
+                            Nginx_config_file
+                    "Node.js" 
+                        optional
+                            Node_config_file
+                optional 
+                    Custom_WebServer_Version 
+                        alternative
+                            String WebServer_Version_Tag
+                            String WebServer_Version_Digest
+            String projectName
+        optional
+            Metadata
+                or  
+                    String mantainer
+                    String version
+                    String description
+                    //String projectName //projectName is Required for Deployment
+                    String license
+                    String build_date
+                    String author
+                    String email
+                    String repository
+            Custom_Exposed_Port
+                mandatory
+                    Real Port
+constraints
+    Port > 0 
+    Port < 65536

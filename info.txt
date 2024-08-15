@@ -13,6 +13,7 @@ Web Servers
 nginx
 apache http
 caddy
+Lighttpd
 
 BackEnd
 Javascript: Node.js + ExpressJS fastify Nestjs Adonis

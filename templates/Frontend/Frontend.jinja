@@ -1,0 +1,63 @@
+{%- include 'Common Templates/Header.jinja' %}
+{%- include 'Common Templates/Metadata.jinja' %}
+# ------------------ Build Stage ------------------
+{%- if Angular %}
+    {%- if Compiled_Version_Tag is defined %}
+FROM node:{{Compiled_Version_Tag}} AS build
+    {%- elif Compiled_Version_Digest is defined %}
+FROM node@{{Compiled_Version_Digest}} AS build
+    {%- else %}
+FROM node:latest AS build
+{%- endif %}
+
+WORKDIR /usr/src/app/
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build --prod
+{%- endif %}
+{%- if React %}
+WORKDIR /usr/src/app/
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build --prod
+{%- endif %}
+{%- if Vue %}
+{%- endif%}
+
+# ------------------ Production Stage ------------------
+{%- if Nginx %}
+FROM nginx:{{WebServerVersion}} AS prod
+
+COPY --from=build /usr/src/app/dist/{{projectName}} /usr/share/nginx/html
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+{%- if Custom_Exposed_Port %}
+EXPOSE {{Port.default}}
+{%- endif %}
+
+{%- endif %}
+{%- if Apache%}
+FROM httpd:{{WebServerVersion}} AS prod
+
+COPY --from=build /usr/src/app/dist/{{projectName}} /usr/local/apache2/htdocs/
+
+{%- if Port %}
+EXPOSE {{Port}}
+{%- endif %}
+
+{%- endif %}
+
+
+
+

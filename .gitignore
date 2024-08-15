@@ -25,3 +25,5 @@ dist
 # Ignorar Entorno de desarrollo
 .env
 
+# Ignorar Carpeta 
+"Ejemplos Proyectos Dockerizados"/

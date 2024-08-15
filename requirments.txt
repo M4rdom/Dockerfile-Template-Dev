@@ -1,3 +1,5 @@
 flamapy
 flamapy-fm
 flamapy-sat
+jinja2
+json

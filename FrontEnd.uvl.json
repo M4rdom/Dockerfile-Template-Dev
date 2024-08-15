@@ -1,0 +1,13 @@
+{
+  "file": "FrontEnd.uvl",
+  "config": {
+    "Angular": true,
+    "Custom_Compiled_Version": false,
+    "WebServer": true,
+    "Nginx": true,
+    "projectName": "angular-expample",
+    "Metadata": true,
+    "version": "1.0",
+    "maintainer": "marcos105@gmail.com"
+  }
+}
