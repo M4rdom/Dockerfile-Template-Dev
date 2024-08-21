@@ -1,0 +1,22 @@
+{
+  "file": "FrontEnd.uvl",
+  "config": {
+    "WebServer": true,
+    "Angular": true,
+    "Apache": false,
+    "NodeJs": true,
+    "Custom_WebServer_Version": true,
+    "WebServer_Version_Tag": "latest",
+    "projectName": "angular_node",
+    "Metadata": true,
+    "maintainer": "marcos",
+    "version": "3.0",
+    "description": "some description ",
+    "license": "MIT ",
+    "build_date": "today",
+    "author": "marcos",
+    "email": "hotmail.com",
+    "Custom_Exposed_Port": true,
+    "Port": 3400
+  }
+}

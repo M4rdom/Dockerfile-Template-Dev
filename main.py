@@ -12,12 +12,14 @@ def main():
     env = Environment(loader=file_loader)
     
     # Cargar la plantilla desde la carpeta de plantillas
-    Dockerfile_Template = env.get_template('Frontend/Frontend.jinja')
+    Dockerfile_Template = env.get_template('Frontend/Frontend.jinja') # <-----------------------------------Para cambiar plantilla
 
     # Definir el contexto para la plantilla, El fichero JSON para la configuración de la plantilla
-    with open('FrontEnd.uvl.json') as f:
+    #with open('configurations/FrontEnd/Angular_Nginx.json') as f: # <----------------------------------------Para cambiar configuración
+    with open('configurations/FrontEnd/Angular_Node_js.json') as f: # <----------------------------------------Para cambiar configuración
       Configuracion = json.load(f)
       Configuracion = Configuracion.get('config') # Se obtiene el diccionario de configuración
+      #print(Configuracion)
 
     # Renderizar la plantilla con el contexto
     output = Dockerfile_Template.render(Configuracion)

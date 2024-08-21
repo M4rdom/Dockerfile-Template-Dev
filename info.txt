@@ -11,7 +11,7 @@ Development
 
 Web Servers  
 nginx
-apache http
+apache | http
 caddy
 Lighttpd
 

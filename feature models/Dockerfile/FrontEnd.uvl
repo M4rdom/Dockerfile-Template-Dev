@@ -1,7 +1,7 @@
 features
     Frontend {abstract}
         mandatory
-            Framework 
+            Framework {abstract}
                 alternative
                     Angular
                     React
@@ -11,27 +11,26 @@ features
                         alternative
                             String Compiled_Version_Tag
                             String Compiled_Version_Digest
-            WebServer 
+            WebServer {abstract}
                 alternative
-                    Apache 
-                        optional
-                            Apache_config_file
-                    Nginx 
-                        optional
-                            Nginx_config_file
-                    "Node.js" 
-                        optional
-                            Node_config_file
+                    Apache
+                    Nginx
+                    NodeJs
                 optional 
                     Custom_WebServer_Version 
                         alternative
                             String WebServer_Version_Tag
                             String WebServer_Version_Digest
+                    Custom_Configuration
+                        alternative
+                            Apache_config_file
+                            Nginx_config_file
+                            Node_config_file
             String projectName
         optional
             Metadata
                 or  
-                    String mantainer
+                    String maintainer
                     String version
                     String description
                     //String projectName //projectName is Required for Deployment
@@ -42,7 +41,7 @@ features
                     String repository
             Custom_Exposed_Port
                 mandatory
-                    Real Port
+                    Integer Port
 constraints
     Port > 0 
     Port < 65536

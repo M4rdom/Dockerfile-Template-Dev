@@ -1,0 +1,14 @@
+{%- include 'Common Templates/Header.jinja' %}
+{%- include 'Common Templates/Metadata.jinja' %}
+
+# ------------------ Build Stage -----------------------#
+{%- elif MySQL %}
+{%- include 'DataBase/SQL/MySQL.jinja'%}
+{%- elif PostgreSQL %}
+{%- include 'DataBase/SQL/PostgreSQL.jinja'%}
+{%- elif MongoDB %}
+{%- include 'DataBase/NoSQL/MongoDB.jinja'%}
+{%- elif Cassandra %}
+{%- include 'DataBase/NoSQL/Cassandra.jinja'%}
+{%- endif %}
+

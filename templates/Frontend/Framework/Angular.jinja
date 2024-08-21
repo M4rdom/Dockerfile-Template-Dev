@@ -1,0 +1,17 @@
+{%- if Compiled_Version_Tag is defined %}
+FROM node:{{Compiled_Version_Tag}} AS build
+{%- elif Compiled_Version_Digest is defined %}
+FROM node@{{Compiled_Version_Digest}} AS build
+{%- else %}
+FROM node:latest AS build
+{%- endif %}
+
+WORKDIR /usr/src/app/
+
+COPY package.json package-lock.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build --prod

@@ -1,0 +1,59 @@
+features
+    DataBase {abstract}
+        mandatory
+            DataBaseEngine {abstract}
+                alternative
+                    SQL
+                        alternative
+                            MySQL {abstract}
+                                optional
+                                    String MYSQL_ROOT_PASSWORD
+                                    String MYSQL_DATABASE
+                                    String MYSQL_USER
+                                    String MYSQL_PASSWORD
+                            PostgreSQL {abstract}
+                                optional
+                                    String POSTGRES_PASSWORD
+                                    String POSTGRES_USER
+                                    String POSTGRES_DB    
+                    NoSQL
+                        alternative
+                            MongoDB {abstract}
+                                optional
+                                    
+                            Cassandra {abstract}
+                optional
+                    Custom_Compiled_Version
+                        alternative
+                            String Compiled_Version_Tag
+                            String Compiled_Version_Digest
+        optional
+            DataBaseServer {abstract} // WebInterface?
+                alternative
+                    MySQL_Server
+                    PostgreSQL_Server
+                    MongoDB_Server
+                optional 
+                    Custom_DataBaseServer_Version 
+                        alternative
+                            String DataBaseServer_Version_Tag
+                            String DataBaseServer_Version_Digest
+                    Custom_Configuration
+                        alternative
+                            MySQL_config_file
+                            PostgreSQL_config_file
+                            MongoDB_config_file
+            Metadata
+                or  
+                    String maintainer
+                    String version
+                    String description
+                    String DataBaseName 
+                    String license
+                    String build_date
+                    String author
+                    String email
+                    String repository
+            Custom_Exposed_Port
+                mandatory
+                    Integer Port
