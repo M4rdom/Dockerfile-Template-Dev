@@ -1,3 +1,5 @@
+# Nginx WebServer Dockerfile
+
 {% if WebServer_Version_Tag %}
 FROM nginx:{{WebServer_Version_Tag}} AS prod
 {% elif WebServer_Version_Digest %}
@@ -6,7 +8,11 @@ FROM nginx@{{WebServer_Version_Digest}} AS prod
 FROM nginx AS prod
 {% endif %}
 
-COPY --from=build /usr/src/app/dist/{{projectName}} /usr/share/nginx/html
+{%if React %}
+COPY --from=build /app/build/{{projectName}} /usr/share/nginx/html
+{%else%}
+COPY --from=build /app/dist/{{projectName}} /usr/share/nginx/html
+{% endif %}
 
 COPY nginx.conf /etc/nginx/nginx.conf
 

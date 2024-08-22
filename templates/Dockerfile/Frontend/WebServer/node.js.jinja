@@ -1,3 +1,5 @@
+# Node.js WebServer Dockerfile
+
 {% if WebServer_Version_Tag %}
 FROM node:{{WebServer_Version_Tag}} AS prod
 {% elif WebServer_Version_Digest %}
@@ -6,11 +8,11 @@ FROM node@{{WebServer_Version_Digest}} AS prod
 FROM node AS prod
 {% endif %}
 
-WORKDIR /usr/src/app/
+WORKDIR /app/
 
 RUN npm install express
 
-COPY --from=build /usr/src/app/dist /usr/src/app/dist
+COPY --from=build /app/dist /app/dist
 
 COPY server.js ./
 

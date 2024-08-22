@@ -1,4 +1,14 @@
-WORKDIR /usr/src/app/
+# React Aplication Dockerfile
+
+{% if Compiled_Version_Tag %}
+FROM node:{{Compiled_Version_Tag}} AS build
+{% elif Compiled_Version_Digest %}
+FROM node@{{Compiled_Version_Digest}} AS build
+{% else %}
+FROM node:latest AS build
+{% endif %}
+
+WORKDIR /app/
 
 COPY package.json package-lock.json ./
 

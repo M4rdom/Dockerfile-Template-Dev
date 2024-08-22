@@ -1,14 +1,23 @@
-{%- if WebServer_Version_Tag %}
-FROM httpd:{{WebServer_Version_Tag}} AS prod
-{%- elif WebServer_Version_Digest %}
-FROM httpd@{{WebServer_Version_Digest}} AS prod
-{%- else %}
-FROM httpd AS prod
-{%- endif %}
+# Apache:http WebServer Dockerfile
 
-COPY --from=build /usr/src/app/dist/{{projectName}} /usr/local/apache2/htdocs/
+{% if WebServer_Version_Tag %}
+FROM httpd:{{WebServer_Version_Tag}} AS prod
+{% elif WebServer_Version_Digest %}
+FROM httpd@{{WebServer_Version_Digest}} AS prod
+{% else %}
+FROM httpd AS prod
+{% endif %}
+
+{%if React %}
+COPY --from=build /app/build/{{projectName}} /usr/local/apache2/htdocs/
+{%else%}
+COPY --from=build /app/dist/{{projectName}} /usr/local/apache2/htdocs/
+{% endif %}
+
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
+
 {% if Port is defined%}
 EXPOSE {{Port}}
-{%- else %}
+{% else %}
 EXPOSE 80
-{%- endif %}
+{% endif %}
