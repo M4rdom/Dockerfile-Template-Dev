@@ -1,14 +1,15 @@
-{%- if WebServer_Version_Tag %}
+{% if WebServer_Version_Tag %}
 FROM nginx:{{WebServer_Version_Tag}} AS prod
-{%- elif WebServer_Version_Digest %}
+{% elif WebServer_Version_Digest %}
 FROM nginx@{{WebServer_Version_Digest}} AS prod
-{%- else %}
+{% else %}
 FROM nginx AS prod
-{%- endif %}
+{% endif %}
 
 COPY --from=build /usr/src/app/dist/{{projectName}} /usr/share/nginx/html
 
 COPY nginx.conf /etc/nginx/nginx.conf
+
 {% if Port is defined%}
 EXPOSE {{Port}}
 {% else %}

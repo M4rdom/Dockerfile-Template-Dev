@@ -1,13 +1,14 @@
 {
-  "file": "FrontEnd.uvl",
+  "file": "Angular.uvl",
   "config": {
+    "Dockerfile": true,
+    "Frontend": true,
+    "Framework": true,
     "Angular": true,
     "Custom_Compiled_Version": false,
     "WebServer": true,
     "Nginx": true,
-    "projectName": "angular-expample",
-    "Metadata": true,
-    "version": "1.0",
-    "maintainer": "marcos105@gmail.com"
+    "Custom_WebServer_Version": true,
+    "WebServer_Version_Tag": "latest"
   }
 }

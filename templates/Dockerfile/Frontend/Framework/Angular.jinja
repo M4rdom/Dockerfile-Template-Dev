@@ -1,10 +1,10 @@
-{%- if Compiled_Version_Tag is defined %}
+{% if Compiled_Version_Tag %}
 FROM node:{{Compiled_Version_Tag}} AS build
-{%- elif Compiled_Version_Digest is defined %}
+{% elif Compiled_Version_Digest %}
 FROM node@{{Compiled_Version_Digest}} AS build
-{%- else %}
+{% else %}
 FROM node:latest AS build
-{%- endif %}
+{% endif %}
 
 WORKDIR /usr/src/app/
 

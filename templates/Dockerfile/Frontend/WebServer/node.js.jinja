@@ -1,12 +1,10 @@
-{%- if WebServer_Version_Tag %}
+{% if WebServer_Version_Tag %}
 FROM node:{{WebServer_Version_Tag}} AS prod
-{%- elif WebServer_Version_Digest %}
+{% elif WebServer_Version_Digest %}
 FROM node@{{WebServer_Version_Digest}} AS prod
-{%- else %}
+{% else %}
 FROM node AS prod
-{%- endif %}
-
-FROM node:22
+{% endif %}
 
 WORKDIR /usr/src/app/
 
@@ -15,10 +13,11 @@ RUN npm install express
 COPY --from=build /usr/src/app/dist /usr/src/app/dist
 
 COPY server.js ./
-{% if Port is defined%}
+
+{% if Port is defined %}
 EXPOSE {{Port}}
-    {%- else %}
+{% else %}
 EXPOSE 80
-    {%- endif %}
+{% endif %}
 
 CMD ["NODE_ENV=production","node", "server.js"]

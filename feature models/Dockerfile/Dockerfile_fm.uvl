@@ -1,0 +1,95 @@
+features
+    Dockerfile {abstract}
+        alternative
+            Frontend {abstract}
+                mandatory
+                    Framework {abstract}
+                        alternative
+                            Angular
+                            React
+                            Vue
+                        optional
+                            Custom_Compiled_Version
+                                alternative
+                                    String Compiled_Version_Tag
+                                    String Compiled_Version_Digest
+                    WebServer {abstract}
+                        alternative
+                            Apache
+                            Nginx
+                            NodeJs
+                        optional 
+                            Custom_WebServer_Version 
+                                alternative
+                                    String WebServer_Version_Tag
+                                    String WebServer_Version_Digest
+                            Custom_Configuration
+                                alternative
+                                    Apache_config_file
+                                    Nginx_config_file
+                                    Node_config_file
+            DataBase {abstract}
+                mandatory
+                    DataBaseEngine {abstract}
+                        alternative
+                            MySQL {abstract}
+                                optional
+                                    String MYSQL_ROOT_PASSWORD
+                                    String MYSQL_DATABASE
+                                    String MYSQL_USER
+                                    String MYSQL_PASSWORD
+                            PostgreSQL {abstract}
+                                optional
+                                    String POSTGRES_PASSWORD
+                                    String POSTGRES_USER
+                                    String POSTGRES_DB    
+                            MongoDB {abstract}
+                                optional
+                                    String MONGO_INITDB_ROOT_USERNAME
+                                    String MONGO_INITDB_ROOT_PASSWORD
+                                    String MONGO_INITDB_DATABASE
+                            Cassandra {abstract}
+                                optional
+                                    String CASSANDRA_USER
+                                    String CASSANDRA_PASSWORD
+                        optional
+                            Custom_Database_Version
+                                alternative
+                                    String Database_Version_Tag
+                                    String Database_Version_Digest
+            Backend {abstract}
+            DataBaseServer {abstract} 
+                alternative
+                    MySQL_Server
+                    PostgreSQL_Server
+                    MongoDB_Server
+                optional 
+                    Custom_DataBaseServer_Version 
+                        alternative
+                            String DataBaseServer_Version_Tag
+                            String DataBaseServer_Version_Digest
+                    DataBase_Server_Custom_Configuration
+                        alternative
+                            MySQL_config_file
+                            PostgreSQL_config_file
+                            MongoDB_config_file
+
+        optional
+            Metadata
+                or  
+                    String maintainer
+                    String version
+                    String description
+                    ProjectName
+                        mandatory
+                            String projectName
+                    String license
+                    String build_date
+                    String author
+                    String email
+                    String repository
+            Custom_Exposed_Port
+                mandatory
+                    Integer Port
+constraints
+    Frontend => ProjectName

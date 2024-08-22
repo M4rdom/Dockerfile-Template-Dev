@@ -1,0 +1,22 @@
+# ------------------ Build Stage -----------------------#
+
+{% if Angular %}
+{% include 'Framework/Angular.jinja'%}
+{% elif React %}
+{% include 'Framework/React.jinja'%}
+{% elif Vue %}
+{% include 'Framework/Vue.jinja'%}
+{% endif %}
+
+# ------------------ Production Stage ------------------#
+
+{% if Nginx %}
+{% include 'Webserver/nginx.jinja'%}
+{% elif Apache%}
+{% include 'Webserver/apache.jinja'%}
+{% elif NodeJs %}
+{% include 'Webserver/node.js.jinja'%}
+{% endif %}
+
+
+
