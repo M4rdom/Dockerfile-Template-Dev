@@ -9,9 +9,9 @@ FROM httpd AS prod
 {% endif %}
 
 {%if React %}
-COPY --from=build /app/build/{{projectName}} /usr/local/apache2/htdocs/
+COPY --from=build /app/build/{{projectName}}/ /usr/local/apache2/htdocs/
 {%else%}
-COPY --from=build /app/dist/{{projectName}} /usr/local/apache2/htdocs/
+COPY --from=build /app/dist/{{projectName}}/ /usr/local/apache2/htdocs/
 {% endif %}
 
 COPY httpd.conf /usr/local/apache2/conf/httpd.conf
