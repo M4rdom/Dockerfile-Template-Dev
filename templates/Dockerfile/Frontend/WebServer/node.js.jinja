@@ -5,7 +5,7 @@ FROM node:{{WebServer_Version_Tag}} AS prod
 {% elif WebServer_Version_Digest %}
 FROM node@{{WebServer_Version_Digest}} AS prod
 {% else %}
-FROM node AS prod
+FROM node AS prod # Avoid using latest tag in production
 {% endif %}
 
 WORKDIR /app/

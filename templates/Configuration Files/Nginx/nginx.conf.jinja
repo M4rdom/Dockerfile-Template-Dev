@@ -33,7 +33,13 @@ http {
         #access_log  /var/log/nginx/host.access.log  main;        
 
         location / {
+{% if Angular %}
             root   /usr/share/nginx/html/browser/;
+{% elif React %}
+            root   /usr/share/nginx/html/;
+{% elif Vue %}
+            root   /usr/share/nginx/html/browser/;
+{% endif %}
             index  index.html index.html;
         }
 
