@@ -5,7 +5,8 @@ FROM httpd:{{WebServer_Version_Tag}} AS prod
 {% elif WebServer_Version_Digest %}
 FROM httpd@{{WebServer_Version_Digest}} AS prod
 {% else %}
-FROM httpd AS prod # Avoid using latest tag in production
+# Avoid using latest tag in production
+FROM httpd AS prod 
 {% endif %}
 
 {%if React %}

@@ -5,7 +5,8 @@ FROM node:{{Compiled_Version_Tag}} AS build
 {% elif Compiled_Version_Digest %}
 FROM node@{{Compiled_Version_Digest}} AS build
 {% else %}
-FROM node:latest AS build # Avoid using latest tag in production
+# Avoid using latest tag in production
+FROM node:latest AS build 
 {% endif %}
 
 WORKDIR /app/
@@ -16,4 +17,4 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build 
+RUN npm run build --prod

@@ -5,19 +5,24 @@ FROM nginx:{{WebServer_Version_Tag}} AS prod
 {% elif WebServer_Version_Digest %}
 FROM nginx@{{WebServer_Version_Digest}} AS prod
 {% else %}
-FROM nginx AS prod # Avoid using latest tag in production
+# Avoid using latest tag in production
+FROM nginx AS prod 
 {% endif %}
 
-{%if React %}
+{% if React %}
 COPY --from=build /app/build/ /usr/share/nginx/html/
-{%else%}
+{% elif Angular%}
+COPY --from=build /app/dist/{{projectName}}/ /usr/share/nginx/html/
+{% elif Vue%}
 COPY --from=build /app/dist/{{projectName}}/ /usr/share/nginx/html/
 {% endif %}
 
+{% if Custom_nginx_config_file %}
 COPY nginx.conf /etc/nginx/nginx.conf
 
 RUN service nginx restart
 
+{% endif %}
 {% if Port is defined%}
 EXPOSE {{Port}}
 {% else %}

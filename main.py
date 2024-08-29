@@ -4,9 +4,9 @@ from EVngine.models import VEngine
 
 # CONSTANTS
 FM_MODEL_PATH = os.path.join('feature models','Dockerfile','Dockerfile_fm.uvl')
-CONFIGURATION_PATH = os.path.join('configurations','FrontEnd','Example_2','configuration.json')
-#TEMPLATE_PATH = os.path.join('templates','Dockerfile','Frontend','Frontend.jinja')
-TEMPLATE_PATH = os.path.join('templates','Configuration Files','Nginx','nginx.conf.jinja')
+CONFIGURATION_PATH = os.path.join('configurations','FrontEnd','Example_3','configuration.json')
+TEMPLATE_PATH = os.path.join('templates','Dockerfile','dockerfile.jinja')
+#TEMPLATE_PATH = os.path.join('templates','Configuration Files','Nginx','nginx.conf.jinja')
 #MAPPING_MODEL_PATH = os.path.join(BASE_PATH, CASE_STUDY, 'mapping_models', f'{CASE_STUDY}_mapping.csv')
 
 
@@ -22,5 +22,5 @@ if __name__ == '__main__':
     result = vengine.resolve_variability()
     print(result)
 
-    with open('Dockerfile', 'w') as file:
+    with open('Dockerfile', 'w' ,encoding="utf-8") as file:
         file.write(result)
