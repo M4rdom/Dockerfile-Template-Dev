@@ -59,6 +59,39 @@ features
                                     String Database_Version_Tag
                                     String Database_Version_Digest
             Backend {abstract}
+                mandatory
+                    Language {abstract}
+                        alternative
+                            Java
+                                optional
+                                    Custom_Java_Version
+                                        alternative
+                                            String Java_Version_Tag
+                                            String Java_Version_Digest
+                            JavaScript
+                                optional
+                                    Custom_NodeJs_Version
+                                        alternative
+                                            String NodeJs_Version_Tag
+                                            String NodeJs_Version_Digest
+                            Python
+                                optional
+                                    Custom_Python_Version
+                                        alternative
+                                            String Python_Version_Tag
+                                            String Python_Version_Digest
+                            Ruby
+                                optional
+                                    Custom_Ruby_Version
+                                        alternative
+                                            String Ruby_Version_Tag
+                                            String Ruby_Version_Digest
+                            Go
+                                optional
+                                    Custom_Go_Version
+                                        alternative
+                                            String Go_Version_Tag
+                                            String Go_Version_Digest
             DataBaseServer {abstract} 
                 alternative
                     MySQL_Server
@@ -80,7 +113,9 @@ features
                     String maintainer
                     String version
                     String description
-                    String projectName
+                    ProjectName
+                        mandatory
+                            String projectName
                     String license
                     String build_date
                     String author
@@ -90,4 +125,4 @@ features
                 mandatory
                     Integer Port
 constraints
-   // Frontend => ProjectName
+   Frontend => ProjectName

@@ -1,0 +1,11 @@
+{
+  "file": "Dockerfile_fm.uvl",
+  "config": {
+    "Frontend": true,
+    "Framework": true,
+    "Vue": true,
+    "Compiled_Version_Tag": "14",
+    "WebServer": true,
+    "Nginx": true
+  }
+}
