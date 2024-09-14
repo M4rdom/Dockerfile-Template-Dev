@@ -1,11 +1,23 @@
 {
   "file": "Dockerfile_fm.uvl",
   "config": {
-    "Frontend": true,
-    "Framework": true,
-    "Vue": true,
-    "Compiled_Version_Tag": "14",
-    "WebServer": true,
-    "Nginx": true
+    "Backend": true,
+    "Programing_Language": true,
+    "Python": true,
+    "Flask": true,
+    "Install_Python_Requirements": true,
+    "Gunicorn": true,
+    "interface": "0.0.0.0",
+    "workers": 4.0,
+    "module": "holamundo",
+    "callable": "app",
+    "Gunicorn_Install": true,
+    "Custom_Gunicorn_Version": false,
+    "maintainer": "marcos",
+    "version": "1.0",
+    "author": "marcos",
+    "email": "nose@gmail.com",
+    "Custom_Exposed_Port": true,
+    "Port": "80"
   }
 }
