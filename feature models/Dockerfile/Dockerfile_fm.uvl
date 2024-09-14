@@ -77,7 +77,7 @@ features
                                             Gunicorn {abstract}
                                                 mandatory
                                                     String interface
-                                                    Integer workers
+                                                    String workers
                                                     String module
                                                     String callable
                                                 optional
