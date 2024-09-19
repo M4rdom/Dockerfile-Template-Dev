@@ -1,0 +1,22 @@
+Feature, Handler, Value
+
+
+# WeServer Version Parameters
+Custom_WebServer_Frontend_Version, WebServer_Version_Tag,
+WebServer_Frontend_Version_Tag, WebServer_Version_Tag
+WebServer_Frontend_Version_Digest, WebServer_Version_Digest,
+
+
+# WSGI Gunicorn Parameters
+parameter, value
+interface_Gunicorn, interface
+workers_Gunicorn, workers
+module_Gunicorn, module
+callable_Gunicorn, callable
+
+# WSGI uWSGI Parameters
+interface_uWSGI, interface
+workers_uWSGI, workers
+module_uWSGI, module
+callable_uWSGI, callable
+

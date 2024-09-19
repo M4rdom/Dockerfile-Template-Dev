@@ -1,6 +1,3 @@
-
-
-
 class ConfigurationValueException(Exception):
     pass
 

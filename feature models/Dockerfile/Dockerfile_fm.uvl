@@ -13,22 +13,22 @@ features
                                 alternative
                                     String Compiled_Version_Tag
                                     String Compiled_Version_Digest
-                    WebServer {abstract}
+                    WebServer_Frontend {abstract}
                         alternative
-                            Apache
+                            Apache_WebServer_Frontend
                                 optional
-                                    Custom_apache_config_file
-                            Nginx
+                                    Custom_apache_config_file_Frontend
+                            Nginx_WebServer_Frontend
                                 optional
-                                    Custom_nginx_config_file
-                            NodeJs
+                                    Custom_nginx_config_file_Frontend
+                            NodeJs_WebServer_Frontend
                                 optional
-                                    Custom_nodeJs_config_file
+                                    Custom_nodeJs_config_file_Frontend
                         optional 
-                            Custom_WebServer_Version 
+                            Custom_WebServer_Frontend_Version 
                                 alternative
-                                    String WebServer_Version_Tag
-                                    String WebServer_Version_Digest
+                                    String WebServer_Frontend_Version_Tag
+                                    String WebServer_Frontend_Version_Digest
             DataBase {abstract}
                 mandatory
                     DataBaseEngine {abstract}
@@ -76,20 +76,32 @@ features
                                         alternative 
                                             Gunicorn {abstract}
                                                 mandatory
-                                                    String interface
-                                                    String workers
-                                                    String module
-                                                    String callable
+                                                    String interface_Gunicorn
+                                                    String workers_Gunicorn
+                                                    String module_Gunicorn
+                                                    String callable_Gunicorn
                                                 optional
                                                     Gunicorn_Install
                                                         optional 
                                                             Custom_Gunicorn_Version
                                                                 mandatory
                                                                     String Gunicorn_Version
+                                            uWSGI {abstract}
+                                                mandatory
+                                                    String interface_uWSGI
+                                                    String workers_uWSGI
+                                                    String module_uWSGI
+                                                    String callable_uWSGI
+                                                optional
+                                                    uWSGI_Install
+                                                        optional 
+                                                            Custom_uWSGI_Version
+                                                                mandatory
+                                                                    String uWSGI_Version
                             Java
                                 alternative
                                     Spring
-                                    SpringBoot
+                                    JavaEE
                                 optional
                                     Custom_Java_Version
                                         alternative
@@ -118,6 +130,22 @@ features
                             MySQL_config_file
                             PostgreSQL_config_file
                             MongoDB_config_file
+            WebServer
+                alternative
+                    Apache
+                        optional
+                            Custom_apache_config_file
+                    Nginx
+                        optional
+                            Custom_nginx_config_file
+                    NodeJs
+                        optional
+                            Custom_nodeJs_config_file
+                optional 
+                    Custom_WebServer_Version 
+                        alternative
+                            String WebServer_Version_Tag
+                            String WebServer_Version_Digest
         optional
             Header
             Metadata

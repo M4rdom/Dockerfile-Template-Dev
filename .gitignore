@@ -4,14 +4,11 @@
 # Ignorar pycache
 __pycache__
 
+# Ignorar pytest cache
+.pytest_cache
+
 # Ignorar archivos con Extension .dot
 *.dot
-
-# Ingorar node_modules
-node_modules
-
-# Ingnorar .angular 
-.angular
 
 # Ingorar .vscode
 .vscode
@@ -27,3 +24,5 @@ dist
 
 # Ignorar Carpeta 
 configurations/
+
+

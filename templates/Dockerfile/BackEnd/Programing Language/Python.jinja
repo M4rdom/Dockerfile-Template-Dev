@@ -41,10 +41,15 @@ COPY . /app
 
 {%- if Install_Python_Requirements %}
 
-
 # Install the application dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 {% endif -%}
+
+
+
+
+
+
 
 
 
@@ -64,6 +69,29 @@ RUN pip install --no-cache-dir gunicorn
 # Run the application using Gunicorn
 CMD ["gunicorn", "-w", "{{workers}}", "-b", "{{interface}}:{{Port}}", "{{module}}:{{callable}}"]
 {% endif %}
+
+
+
+
+
+
+
+{%- if uWSGI %}
+{% if uWSGI_Install %}
+{% if Custom_uWSGI_Version %}
+RUN pip install --no-cache-dir uwsgi=={{uWSGI_Version}}
+{% else %}
+RUN pip install --no-cache-dir uwsgi
+{% endif %}
+{% endif %}
+# Run the application using uWSGI
+CMD ["uwsgi", "--http", "{{interface}}:{{Port}}", "--wsgi-file", "{{module}}:{{callable}}"]
+{% endif %}
+
+
+
+
+
 
 
 

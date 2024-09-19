@@ -11,11 +11,11 @@
 # ------------------ Production Stage ------------------#
 
 {% if Nginx %}
-{% include 'Frontend/Webserver/nginx.jinja'%}
+{% include 'Frontend/WebServer/nginx.jinja'%}
 {% elif Apache%}
-{% include 'Frontend/Webserver/apache.jinja'%}
+{% include 'Frontend/WebServer/apache.jinja'%}
 {% elif NodeJs %}
-{% include 'Frontend/Webserver/node.js.jinja'%}
+{% include 'Frontend/WebServer/node.js.jinja'%}
 {% endif %}
 
 
