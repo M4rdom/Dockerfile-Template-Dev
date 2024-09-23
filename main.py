@@ -1,11 +1,13 @@
 import os
 
-from VEngine.models import VEngine
+import UVengine
 
 # CONSTANTS
 FM_MODEL_PATH = os.path.join('feature models','Dockerfile','Dockerfile_fm.uvl')
 
+#Entrada Para Dockerfile
 CONFIGURATION_PATH = os.path.join('Dockerfile_fm.uvl.json')
+
 TEMPLATE_PATH = os.path.join('templates','Dockerfile','Dockerfile.jinja')
 MAPPING_MODEL_PATH = os.path.join('mapping models','Dockerfile','Dockerfile_mapping_model.csv')
 
@@ -20,7 +22,7 @@ if __name__ == '__main__':
     
     
     
-    vengine = VEngine()
+    vengine = UVengine.VEngine()
     vengine.load_configuration(configuration_path)
     vengine.load_mapping_model(mapping_model_path)
     vengine.load_template(template_path)

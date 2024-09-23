@@ -7,5 +7,8 @@
 {% include 'BackEnd/BackEnd.jinja' %}
 {% endif %}
 {% if Database %}
-{% include 'Frontend/Frontend.jinja' %}
+{% include 'Database/Database.jinja' %}
+{% endif %}
+{% if OperatingSystem %}
+{% include 'OperatingSystem/OperatingSystem.jinja' %}
 {% endif %}

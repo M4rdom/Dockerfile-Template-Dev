@@ -115,22 +115,7 @@ features
                                         alternative
                                             String NodeJs_Version_Tag
                                             String NodeJs_Version_Digest
-            DataBaseServer {abstract} 
-                alternative
-                    MySQL_Server
-                    PostgreSQL_Server
-                    MongoDB_Server
-                optional 
-                    Custom_DataBaseServer_Version 
-                        alternative
-                            String DataBaseServer_Version_Tag
-                            String DataBaseServer_Version_Digest
-                    DataBase_Server_Custom_Configuration
-                        alternative
-                            MySQL_config_file
-                            PostgreSQL_config_file
-                            MongoDB_config_file
-            WebServer
+            WebServer {abstract}
                 alternative
                     Apache
                         optional
@@ -138,14 +123,34 @@ features
                     Nginx
                         optional
                             Custom_nginx_config_file
-                    NodeJs
-                        optional
-                            Custom_nodeJs_config_file
                 optional 
                     Custom_WebServer_Version 
                         alternative
                             String WebServer_Version_Tag
                             String WebServer_Version_Digest
+            OperatingSystem {abstract}
+                alternative
+                    Unix_Linux {abstract}
+                        alternative
+                            busybox
+                            alpine
+                            ubuntu
+                        optional
+                            Custom_Linux_Version
+                                alternative
+                                    String Linux_Version_Tag
+                                    String Linux_Version_Digest
+                    Windows
+                        alternative
+                            Windows_LTS
+                            Windows_Server
+                            Windows_ServerCore
+                            Windows_NanoServer
+                        optional
+                            Custom_Windows_Version
+                                alternative
+                                    String Windows_Version_Tag
+                                    String Windows_Version_Digest
         optional
             Header
             Metadata
@@ -167,6 +172,5 @@ features
 constraints
    Custom_apache_config_file => ProjectName
    Custom_nginx_config_file => ProjectName
-   Custom_nodeJs_config_file => ProjectName
    Gunicorn => Custom_Exposed_Port
 
