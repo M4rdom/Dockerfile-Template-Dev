@@ -6,22 +6,22 @@ FROM postgres@{{Compiled_Version_Digest}}
 FROM postgres:latest
 {%- endif %}
 {%- if MYSQL_ROOT_PASSWORD is defined %}
-# Set the password for the default postgres user DO NOT USE IN PRODUCTION
 
+# Set the password for the default postgres user DO NOT USE IN PRODUCTION
 ENV MYSQL_ROOT_PASSWORD=postgres
 {%- endif %}
 {%- if MYSQL_DATABASE is defined %}
-# Set the default database name DO NOT USE IN PRODUCTION
 
+# Set the default database name DO NOT USE IN PRODUCTION
 ENV MYSQL_DATABASE=postgres
 {%- endif %}
 {%- if MYSQL_USER is defined %}
-# Set the default user for the database DO NOT USE IN PRODUCTION
 
+# Set the default user for the database DO NOT USE IN PRODUCTION
 ENV MYSQL_USER=postgres
 {%- endif %}
 {%- if MYSQL_PASSWORD is defined %}
-# Set the password for the default postgres user DO NOT USE IN PRODUCTION
 
+# Set the password for the default postgres user DO NOT USE IN PRODUCTION
 ENV MYSQL_PASSWORD=postgres
 {%- endif %}

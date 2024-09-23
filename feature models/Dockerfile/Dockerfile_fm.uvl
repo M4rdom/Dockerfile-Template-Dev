@@ -49,10 +49,6 @@ features
                                     String MONGO_INITDB_ROOT_USERNAME
                                     String MONGO_INITDB_ROOT_PASSWORD
                                     String MONGO_INITDB_DATABASE
-                            Cassandra {abstract}
-                                optional
-                                    String CASSANDRA_USER
-                                    String CASSANDRA_PASSWORD
                         optional
                             Custom_Database_Version
                                 alternative
@@ -152,20 +148,22 @@ features
                                     String Windows_Version_Tag
                                     String Windows_Version_Digest
         optional
-            Header
             Metadata
-                or  
-                    String maintainer
-                    String version
-                    String description
-                    ProjectName
-                        mandatory
-                            String projectName
-                    String license
-                    String build_date
-                    String author
-                    String email
-                    String repository
+                optional
+                    Header
+                    Dockerfile_Metadata
+                        or
+                            String maintainer
+                            String version
+                            String description
+                            ProjectName
+                                mandatory
+                                    String projectName
+                            String license
+                            String build_date
+                            String author
+                            String email
+                            String repository
             Custom_Exposed_Port
                 mandatory
                     String Port
@@ -173,4 +171,3 @@ constraints
    Custom_apache_config_file => ProjectName
    Custom_nginx_config_file => ProjectName
    Gunicorn => Custom_Exposed_Port
-
