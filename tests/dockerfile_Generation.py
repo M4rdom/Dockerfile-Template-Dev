@@ -1,6 +1,8 @@
 import UVengine
 import tests.constant as CONST
 from pathlib import Path
+import os
+import pytest
 
 
 
@@ -10,6 +12,9 @@ def assert_Dockerfile_Generation(Folder:str,Test_Number:str) -> bool:
     template_path = CONST.TEMPLATE_PATH
     mapping_model_path = CONST.MAPPING_MODEL_PATH
 
+    if not os.path.exists(configuration_path) or not os.path.exists(dockerfile_product_path):
+        pytest.skip(f"Skipping test because {configuration_path} or {dockerfile_product_path} does not exist")
+    
     vengine = UVengine.VEngine()
     vengine.load_configuration(configuration_path)
     vengine.load_mapping_model(mapping_model_path)

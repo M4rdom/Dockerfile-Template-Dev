@@ -7,7 +7,6 @@
     "PMA_ARBITRARY_phpMyAdmin": true,
     "PMA_HOST_phpMyAdmin": "host",
     "PMA_PORT_phpMyAdmin": "port",
-    "PMA_VERBOSE_phpMyAdmin": "yes",
     "Custom_DatabaseAdmin_Version": true,
     "DatabaseAdmin_Version_Tag": "latest"
   }
