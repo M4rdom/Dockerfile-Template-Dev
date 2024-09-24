@@ -30,30 +30,53 @@ features
                                     String WebServer_Frontend_Version_Tag
                                     String WebServer_Frontend_Version_Digest
             DataBase {abstract}
-                mandatory
-                    DataBaseEngine {abstract}
-                        alternative
-                            MySQL {abstract}
+                alternative
+                    MySQL {abstract}
+                        optional
+                            Custom_config_file_MySQL
+                                mandatory
+                                    String name_of_config_file_MySQL
+                            Environment_Variables_MySQL
                                 optional
                                     String MYSQL_ROOT_PASSWORD
                                     String MYSQL_DATABASE
                                     String MYSQL_USER
                                     String MYSQL_PASSWORD
-                            PostgreSQL {abstract}
-                                optional
-                                    String POSTGRES_PASSWORD
-                                    String POSTGRES_USER
-                                    String POSTGRES_DB    
-                            MongoDB {abstract}
-                                optional
-                                    String MONGO_INITDB_ROOT_USERNAME
-                                    String MONGO_INITDB_ROOT_PASSWORD
-                                    String MONGO_INITDB_DATABASE
+                    PostgreSQL {abstract}
                         optional
-                            Custom_Database_Version
-                                alternative
-                                    String Database_Version_Tag
-                                    String Database_Version_Digest
+                            String POSTGRES_PASSWORD
+                            String POSTGRES_USER
+                            String POSTGRES_DB    
+                    MongoDB {abstract}
+                        optional
+                            String MONGO_INITDB_ROOT_USERNAME
+                            String MONGO_INITDB_ROOT_PASSWORD
+                            String MONGO_INITDB_DATABASE
+                optional
+                    Custom_Database_Version
+                        alternative
+                            String Database_Version_Tag
+                            String Database_Version_Digest
+            DataBaseAdmin {abstract}
+                alternative
+                    PhpMyAdmin
+                        optional
+                            Custom_config_file_phpMyAdmin
+                            Boolean PMA_ARBITRARY_phpMyAdmin
+                            String PMA_HOST_phpMyAdmin
+                            String PMA_PORT_phpMyAdmin 
+                            String PMA_VERBOSE_phpMyAdmin
+                    pgAdmin
+                        optional
+                            Custom_pgAdmin_config_file
+                    MongoExpress
+                        optional
+                            Custom_MongoExpress_config_file
+                optional
+                        Custom_DatabaseAdmin_Version
+                            alternative
+                                String DatabaseAdmin_Version_Tag
+                                String DatabaseAdmin_Version_Digest
             Backend {abstract}
                 mandatory
                     Programing_Language {abstract}

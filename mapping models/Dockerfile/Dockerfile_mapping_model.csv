@@ -20,3 +20,8 @@ workers_uWSGI, workers
 module_uWSGI, module
 callable_uWSGI, callable
 
+# Phpmyadmin Parameters
+PMA_ARBITRARY_phpMyAdmin, PMA_ARBITRARY
+PMA_HOST_phpMyAdmin, PMA_HOST
+PMA_PORT_phpMyAdmin, PMA_PORT
+PMA_VERBOSE_phpMyAdmin, PMA_VERBOSE
