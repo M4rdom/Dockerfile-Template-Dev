@@ -68,10 +68,10 @@ features
                             String PMA_VERBOSE_phpMyAdmin
                     pgAdmin
                         optional
-                            Custom_pgAdmin_config_file
+                            Custom_config_file_pgAdmin
                     MongoExpress
                         optional
-                            Custom_MongoExpress_config_file
+                            Custom_config_file_MongoExpress
                 optional
                         Custom_DatabaseAdmin_Version
                             alternative

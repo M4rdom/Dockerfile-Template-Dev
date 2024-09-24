@@ -9,25 +9,32 @@ FROM phpmyadmin:latest
 
 
 
-{% if Custom_config_file_phpMyAdmin is defined %}
+
+
+{%- if Custom_config_file_phpMyAdmin is defined %}
+
 COPY ./config.user.inc.php /etc/phpmyadmin/config.inc.php
+
+{% else %}
+
 {% endif %}
 
 
 
-{% if PMA_ARBITRARY %}
+
+
+
+
+{%- if PMA_ARBITRARY %}
 ENV PMA_ARBITRARY=1
 {% endif %}
-
-{% if PMA_HOST %}
+{%- if PMA_HOST %}
 ENV PMA_HOST={{PMA_HOST}}
 {% endif %}
-
-{% if PMA_PORT %}
+{%- if PMA_PORT %}
 ENV PMA_PORT={{PMA_PORT}}
 {% endif %}
-
-{% if PMA_VERBOSE %}
+{%- if PMA_VERBOSE %}
 ENV PMA_VERBOSE={{PMA_VERBOSE}}
 {% endif %}
 
