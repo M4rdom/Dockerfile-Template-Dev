@@ -18,5 +18,8 @@
 {% include 'Frontend/WebServer/Node.js.jinja'%}
 {% endif %}
 
-
-
+{% if Port is defined %}
+EXPOSE {{Port}}
+{% else %}
+EXPOSE 80
+{% endif %}

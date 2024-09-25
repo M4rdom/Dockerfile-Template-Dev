@@ -5,6 +5,9 @@ FROM mongo@{{Compiled_Version_Digest}}
 {%- else %}
 FROM mongo:latest
 {%- endif %}
+
+
+
 {%- if MONGO_INITDB_ROOT_USERNAME is defined %}
 
 # Set the password for the default postgres user DO NOT USE IN PRODUCTION
@@ -14,4 +17,4 @@ ENV MONGO_INITDB_ROOT_USERNAME=postgres
 
 # Set the password for the default postgres user DO NOT USE IN PRODUCTION
 ENV MONGO_INITDB_ROOT_PASSWORD=postgres
-{%- endif %}
+{% endif %}

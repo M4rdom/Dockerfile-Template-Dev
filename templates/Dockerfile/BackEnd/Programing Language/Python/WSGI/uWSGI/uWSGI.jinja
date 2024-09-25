@@ -1,0 +1,16 @@
+{% if uWSGI_Install %}
+{% if Custom_uWSGI_Version %}
+
+RUN pip install --no-cache-dir uwsgi=={{uWSGI_Version}}
+
+{% else %}
+
+RUN pip install --no-cache-dir uwsgi
+
+{% endif %}
+{% endif %}
+
+USER appuser
+
+# Run the application using uWSGI
+CMD ["uwsgi", "--http", "{{interface}}:{{Port}}", "--wsgi-file", "{{module}}:{{callable}}"]

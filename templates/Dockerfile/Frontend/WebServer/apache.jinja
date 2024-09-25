@@ -21,8 +21,3 @@ COPY --from=build /app/dist/{{projectName}}/browser /usr/local/apache2/htdocs/
 COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 
 {% endif %}
-{% if Port is defined%}
-EXPOSE {{Port}}
-{% else %}
-EXPOSE 80
-{% endif %}

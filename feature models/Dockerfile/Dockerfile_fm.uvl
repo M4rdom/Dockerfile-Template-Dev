@@ -194,3 +194,4 @@ constraints
    Custom_apache_config_file => ProjectName
    Custom_nginx_config_file => ProjectName
    Gunicorn => Custom_Exposed_Port
+   uWSGI => Custom_Exposed_Port

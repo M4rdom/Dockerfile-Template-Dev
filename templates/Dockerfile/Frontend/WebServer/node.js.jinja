@@ -17,10 +17,5 @@ COPY --from=build /app/dist/ /app/dist/
 
 COPY server.js ./
 
-{% if Port is defined %}
-EXPOSE {{Port}}
-{% else %}
-EXPOSE 80
-{% endif %}
-
 CMD ["NODE_ENV=production","node", "server.js"]
+
