@@ -26,12 +26,9 @@ FROM python:latest
 {% endif -%}
 
 
-
-
 # Keeps Python from buffering stdout and stderr to avoid situations where
 # the application crashes without emitting any logs due to buffering.
 ENV PYTHONUNBUFFERED=1
-
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
@@ -45,15 +42,17 @@ RUN adduser \
     --uid "${UID}" \
     appuser
 
+
+
+
+
 {%- if Install_Python_Requirements %}
 
 # Install the application dependencies
 RUN --mount=type=cache,target=/root/.cache/pip \
-    --mount=type=bind,source=requirements.txt,target=requirements.txt \
     python -m pip install --no-cache-dir -r requirements.txt
 
 {% endif -%}
-
 
 WORKDIR /app
 

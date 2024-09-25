@@ -10,9 +10,13 @@ RUN pip install --no-cache-dir gunicorn=={{Gunicorn_Version}}
 RUN pip install --no-cache-dir gunicorn
 
 {% endif %}
-{% endif %}
+{% endif -%}
 
 USER appuser
 
 # Run the application using Gunicorn
+{% if Custom_Exposed_Port %}
 CMD ["gunicorn", "-w", "{{workers}}", "-b", "{{interface}}:{{Port}}", "{{module}}:{{callable}}"]
+{% else %}
+CMD ["gunicorn", "-w", "{{workers}}", "-b", "{{interface}}:80", "{{module}}:{{callable}}"]
+{% endif -%}

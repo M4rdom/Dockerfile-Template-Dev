@@ -126,14 +126,6 @@ features
                                         alternative
                                             String Java_Version_Tag
                                             String Java_Version_Digest
-                            JavaScript
-                                alternative
-                                    Nodejs
-                                optional
-                                    Custom_NodeJs_Version
-                                        alternative
-                                            String NodeJs_Version_Tag
-                                            String NodeJs_Version_Digest
             WebServer {abstract}
                 alternative
                     Apache
