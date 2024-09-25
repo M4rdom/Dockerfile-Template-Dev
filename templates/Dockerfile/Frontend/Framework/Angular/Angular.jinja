@@ -8,13 +8,3 @@ FROM node@{{Compiled_Version_Digest}} AS build
 # Avoid using latest tag in production
 FROM node:latest AS build 
 {% endif %}
-
-WORKDIR /app/
-{# COPY package.json package-lock.json ./  #}
-COPY package*.json ./ 
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build --prod

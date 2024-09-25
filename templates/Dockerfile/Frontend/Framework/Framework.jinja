@@ -1,0 +1,18 @@
+{% if Angular %}
+{% include 'Frontend/Framework/Angular/Angular.jinja'%}
+{% elif React %}
+{% include 'Frontend/Framework/React/React.jinja'%}
+{% elif Vue %}
+{% include 'Frontend/Framework/Vue/Vue.jinja'%}
+{% endif %}
+
+WORKDIR /app/
+
+COPY package*.json ./ 
+
+RUN --mount=type=cache,target=/root/.npm npm install \
+    npm run build --prod
+
+COPY . .
+
+RUN npm run build --prod

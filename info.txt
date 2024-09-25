@@ -47,3 +47,5 @@ NGINX + Gunicorn|uWSGI
 
 Observaciones:
 Django solo soporta oficialmente sqlite3 postgresql mysql oracle
+
+If your build contains several layers and you want to ensure the build cache is reusable, order the instructions from less frequently changed to more frequently changed where possible.

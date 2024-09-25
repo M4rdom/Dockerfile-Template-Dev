@@ -1,12 +1,6 @@
 # ------------------ Build Stage -----------------------#
 
-{% if Angular %}
-{% include 'Frontend/Framework/Angular.jinja'%}
-{% elif React %}
-{% include 'Frontend/Framework/React.jinja'%}
-{% elif Vue %}
-{% include 'Frontend/Framework/Vue.jinja'%}
-{% endif %}
+{% include 'Frontend/Framework/Framework.jinja'%}
 
 # ------------------ Production Stage ------------------#
 
