@@ -23,6 +23,8 @@ dist
 .env
 
 # Ignorar Carpeta 
-configurations/
+Configurations/
 
+# Ignorar Produto de la compilación
 
+Dockerfile_fm.uvl.json

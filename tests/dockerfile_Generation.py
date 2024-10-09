@@ -8,7 +8,7 @@ import pytest
 
 def assert_Dockerfile_Generation(Folder:str,Test_Number:str) -> bool:
     configuration_path = CONST.CURRENT_PATH/'test_configurations'/Folder/Test_Number/'Dockerfile_fm.uvl.json'
-    dockerfile_product_path = CONST.CURRENT_PATH/'test_configurations'/Folder/Test_Number/'Dockerfile'
+    dockerfile_product_path = CONST.CURRENT_PATH/'test_configurations'/Folder/Test_Number/'dockerfile'
     template_path = CONST.TEMPLATE_PATH
     mapping_model_path = CONST.MAPPING_MODEL_PATH
 

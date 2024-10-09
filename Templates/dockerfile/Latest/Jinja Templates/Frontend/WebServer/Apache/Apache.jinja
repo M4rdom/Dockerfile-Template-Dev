@@ -9,15 +9,37 @@ FROM httpd@{{WebServer_Version_Digest}} AS prod
 FROM httpd AS prod 
 {% endif %}
 
-{% if React %}
+
+
+
+
+
+
+{%- if projectName is defined %}
+{% set PROJECT_NAME = projectName %}
+{% else %}
+{% set PROJECT_NAME = "YOUR_PROYECT_NAME_HERE"%}
+{% endif %}
+
+
+
+
+
+
+
+
+{%- if React %}
+
 COPY --from=build /app/build/ /usr/local/apache2/htdocs/
 {% elif Angular%}
-COPY --from=build /app/dist/{{projectName}}/browser /usr/local/apache2/htdocs/
+
+COPY --from=build /app/dist/{{PROJECT_NAME}}/browser /usr/local/apache2/htdocs/
 {% elif Vue%}
-COPY --from=build /app/dist/{{projectName}}/browser /usr/local/apache2/htdocs/
+
+COPY --from=build /app/dist/{{PROJECT_NAME}}/browser /usr/local/apache2/htdocs/
 {% endif %}
 
 {% if Custom_apache_config_file %}
-COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 
+COPY httpd.conf /usr/local/apache2/conf/httpd.conf
 {% endif %}

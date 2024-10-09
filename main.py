@@ -1,22 +1,28 @@
 import os
-
 import UVengine
+from pathlib import Path
 
-# CONSTANTS
-FM_MODEL_PATH = os.path.join('feature models','Dockerfile','Dockerfile_fm.uvl')
+
+
+CURRENT_PATH = Path(__file__).resolve().parent
+#print(CURRENT_PATH)
+
 
 #Entrada Para Dockerfile
 CONFIGURATION_PATH = os.path.join('Dockerfile_fm.uvl.json')
 
-TEMPLATE_PATH = os.path.join('templates','Dockerfile','Dockerfile.jinja')
-MAPPING_MODEL_PATH = os.path.join('mapping models','Dockerfile','Dockerfile_mapping_model.csv')
+
+# CONSTANTS
+FM_MODEL_PATH = os.path.join('Templates','dockerfile','Latest','Feature Models','dockerfile_fm.uvl')
+TEMPLATE_PATH = os.path.join('Templates','dockerfile','Latest','Jinja Templates','dockerfile.jinja')
+MAPPING_MODEL_PATH = os.path.join('Templates','dockerfile','Latest','Mapping Model','dockerfile_mapping_model.csv')
 
 
 if __name__ == '__main__':
-    fm_model_path = FM_MODEL_PATH
-
 
     configuration_path = CONFIGURATION_PATH
+
+    fm_model_path = FM_MODEL_PATH
     template_path = TEMPLATE_PATH
     mapping_model_path = MAPPING_MODEL_PATH
     
@@ -35,5 +41,5 @@ if __name__ == '__main__':
     
     
     print(result)
-    with open('Dockerfile', 'w' ,encoding="utf-8") as file:
+    with open('dockerfile', 'w' ,encoding="utf-8") as file:
         file.write(result)
