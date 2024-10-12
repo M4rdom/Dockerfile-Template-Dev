@@ -1,27 +1,41 @@
-# ------------------ Build Stage -----------------------#
+# Python Aplication Dockerfile
+# Fask Aplication Dockerfile
 
-# Angular Aplication Dockerfile
+FROM python:3.13.0-alpine3.20
 
-# Avoid using latest tag in production
-FROM node:latest AS build 
+# Keeps Python from buffering stdout and stderr to avoid situations where
+# the application crashes without emitting any logs due to buffering.
+ENV PYTHONUNBUFFERED=1
 
-WORKDIR /app/
+# Create a non-privileged user that the app will run under.
+# See https://docs.docker.com/go/dockerfile-user-best-practices/
+ARG UID=10001
+RUN adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/nonexistent" \
+    --shell "/sbin/nologin" \
+    --no-create-home \
+    --uid "${UID}" \
+    appuser
 
-COPY package*.json ./ 
 
-RUN --mount=type=cache,target=/root/.npm npm install \
-    npm run build --prod
+WORKDIR /app
 
-COPY . .
+COPY . /app
+# Install the application dependencies
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install --no-cache-dir -r requirements.txt
 
-RUN npm run build --prod
-# ------------------ Production Stage ------------------#
 
-# Nginx WebServer Dockerfile
+# Install Gunicorn This is not recommended for production, requirements.txt should be used instead
 
-# Avoid using latest tag in production
-FROM nginx:latest AS prod 
+RUN pip install --no-cache-dir -r gunicorn==23.0.0
 
-COPY --from=build /app/dist/autodocker/browser /usr/share/nginx/html/
+USER appuser
 
-EXPOSE 80
+# Run the application using Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:80", "app:app"]
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
