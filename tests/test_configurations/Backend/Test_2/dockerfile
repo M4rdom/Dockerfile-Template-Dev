@@ -1,30 +1,7 @@
 # Python Aplication Dockerfile
-{% if Flask %}
 # Fask Aplication Dockerfile
-{% endif %}
-{% if Django %}
-# Django Aplication Dockerfile
-{% endif %}
 
-
-
-
-
-{%- if Python_Version_Tag %}
-
-FROM python:{{Python_Version_Tag}}
-
-{% elif Python_Version_Digest %}
-
-FROM python@{{Python_Version_Digest}}
-
-{% else %}
-
-# Avoid using latest tag in production
-FROM python:latest
-
-{% endif -%}
-
+FROM python:3.13.0-alpine3.20
 
 # Keeps Python from buffering stdout and stderr to avoid situations where
 # the application crashes without emitting any logs due to buffering.
@@ -46,42 +23,19 @@ RUN adduser \
 WORKDIR /app
 
 COPY . /app
-
-
-{%- if Install_Python_Requirements %}
-
 # Install the application dependencies
 RUN --mount=type=cache,target=/root/.cache/pip \
     python -m pip install --no-cache-dir -r requirements.txt
 
-{% endif -%}
 
+# Install Gunicorn This is not recommended for production, requirements.txt should be used instead
 
+RUN pip install --no-cache-dir gunicorn==23.0.0
 
+USER appuser
 
-
-
-{%- if WSGI %}
-{% include 'BackEnd/Programing Language/Python/WSGI/WSGI.jinja'%}
-{% endif %}
-
-
-
-
-
-
-{%- if Custom_Exposed_Port %}
-
-EXPOSE {{Port}}
-{% else %}
-{% if Flask %}
+# Run the application using Gunicorn
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:80", "app:app"]
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
-{% endif %}
-{% if Django %}
-
-# Make port 8000 available to the world outside this container
-EXPOSE 8000
-{% endif %}
-{% endif -%}
